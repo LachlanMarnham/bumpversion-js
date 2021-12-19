@@ -1,0 +1,12 @@
+# Editors
+.vscode/
+
+# Mac/OSX
+.DS_Store
+
+node_modules/
+.cache/
+dist/
+coverage/
+.nvmrc
+src/scratch
