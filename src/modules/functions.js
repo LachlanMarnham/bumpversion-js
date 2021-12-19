@@ -27,9 +27,17 @@ class ValuesFunction {
     this.firstValue = firstValue;
   }
 
-  bump(value) {}
+  bump(value) {
+      if (!this.#values.includes(value)) {
+          throw new ValueError(`Value ${value} is not in the allowed values [${this.#values}]`);
+      }
 
+      let newValIndex = this.#values.indexOf(value) + 1;
+      if (newValIndex === this.#values.length) {
+          throw new ValueError(`The part has already the maximum value among [${this.#values}] and cannot be bumped.`)
+      }
+      return this.#values[newValIndex];
+  }
 }
 
-let values = new ValuesFunction([2, 3]);
-console.log(values.optionalValue, values.firstValue)
+export { ValuesFunction };
