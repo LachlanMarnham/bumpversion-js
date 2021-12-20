@@ -2,6 +2,7 @@
   "name": "@lachlan.marnham/bumpversion",
   "version": "0.0.0",
   "description": "Increases project versions and updates them in your source code",
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/LachlanMarnham/bumpversion-js.git"
@@ -13,7 +14,7 @@
   },
   "homepage": "https://github.com/LachlanMarnham/bumpversion-js#readme",
   "scripts": {
-    "test": "jest"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "devDependencies": {
     "jest": "^27.4.5"
