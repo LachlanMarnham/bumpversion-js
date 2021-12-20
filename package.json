@@ -14,7 +14,8 @@
   },
   "homepage": "https://github.com/LachlanMarnham/bumpversion-js#readme",
   "scripts": {
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js -c tests/jest.config.js"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js -c tests/jest.config.js",
+    "test-ci": "node --experimental-vm-modules node_modules/jest/bin/jest.js -c tests/jest.config.js --ci --updateSnapshot"
   },
   "devDependencies": {
     "jest": "^27.4.5"
