@@ -40,8 +40,4 @@ class ValuesFunction {
   }
 }
 
-function sum(a, b) {
-    return a + b;
-}
-
-export { ValuesFunction, sum };
+export { ValuesFunction };

@@ -1,5 +1,18 @@
-import { sum } from '../../../src/modules/functions.js';
+import { ValuesFunction } from '../../../src/modules/functions.js';
 
-test('adds 1 + 2 to equal 3', () => {
-    expect(sum(1, 2)).toBe(3);
-  });
+describe('ValuesFunction', () => {
+    describe('constructor', () => {
+        test.todo("non-default optionalValue and firstValue");
+        test.todo("default firstValue");
+        test.todo("default optionalValue and firstValue");
+        test.todo("raises when values is empty");
+        test.todo("raises when values doesn't contain optionalValue");
+        test.todo("raises when values doesn't contain firstValue");
+    })
+
+    describe('bump', () => {
+        test.todo("raises if current value not in array");
+        test.todo("raises if maximum value exceeded");
+        test.todo("bumps to next value successfully");
+    })
+})
