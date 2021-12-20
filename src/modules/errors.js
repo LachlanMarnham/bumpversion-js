@@ -1,3 +1,4 @@
 class ValueError extends Error {}
 
-export { ValueError };
+// export { ValueError };
+module.exports = ValueError;

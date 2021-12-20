@@ -1,4 +1,5 @@
-import { ValueError } from './errors.js';
+// import { ValueError } from './errors.js';
+const ValueError = require('./errors');
 
 // TODO clear up error message
 class ValuesFunction {
@@ -40,4 +41,9 @@ class ValuesFunction {
   }
 }
 
-export { ValuesFunction };
+function sum(a, b) {
+    return a + b;
+}
+
+//export { ValuesFunction, sum };
+module.exports = sum;

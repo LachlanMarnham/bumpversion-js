@@ -2,7 +2,6 @@
   "name": "@lachlan.marnham/bumpversion",
   "version": "0.0.0",
   "description": "Increases project versions and updates them in your source code",
-  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/LachlanMarnham/bumpversion-js.git"
