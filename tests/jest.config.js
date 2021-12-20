@@ -1,3 +1,8 @@
+/*
+ * For a detailed explanation regarding each configuration property, visit:
+ * https://jestjs.io/docs/configuration
+ */
+
 const config = {
     verbose: true,
     clearMocks: true,
@@ -6,8 +11,16 @@ const config = {
         "**/*.{js,jsx}",
         "!coverage/**",
         "!node_modules/**",
-        "!jest.config.js"
-    ]
+        "!tests/**"
+    ],
+    coverageDirectory: "coverage",
+    coverageProvider: "v8",
+    coverageThreshold: {
+        global: {
+            lines: 36
+        },
+    },
+    rootDir: '..',
 };
 
 export default config;
