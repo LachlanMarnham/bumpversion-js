@@ -17,7 +17,7 @@ const config = {
     coverageProvider: "v8",
     coverageThreshold: {
         global: {
-            lines: 78
+            lines: 100
         },
     },
     rootDir: '..',

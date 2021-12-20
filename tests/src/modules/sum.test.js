@@ -49,11 +49,29 @@ describe('ValuesFunction', () => {
                 new ValuesFunction([1, 2, 3], 3, 4);
             }).toThrowError(ValueError);
         });
+
     })
 
     describe('bump', () => {
-        test.todo("raises if current value not in array");
-        test.todo("raises if maximum value exceeded");
-        test.todo("bumps to next value successfully");
+
+        test("raises if current value not in array", () => {
+            expect(() => {
+                const valuesFunction = new ValuesFunction([1, 2, 3], 1, 2);
+                valuesFunction.bump(4);
+            }).toThrowError(ValueError);
+        });
+
+        test("raises if maximum value exceeded", () => {
+            expect(() => {
+                const valuesFunction = new ValuesFunction([1, 2, 3], 1, 2);
+                valuesFunction.bump(3);
+            }).toThrowError(ValueError);
+        });
+
+        test("bumps to next value successfully", () => {
+            const valuesFunction = new ValuesFunction([1, 2, 3], 1, 2);
+            expect(valuesFunction.bump(1)).toBe(2);
+        });
+
     })
 })
