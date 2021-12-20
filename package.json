@@ -13,6 +13,9 @@
     "url": "https://github.com/LachlanMarnham/bumpversion-js/issues"
   },
   "homepage": "https://github.com/LachlanMarnham/bumpversion-js#readme",
+  "scripts": {
+    "test": "jest"
+  },
   "devDependencies": {
     "jest": "^27.4.5"
   }
