@@ -1,5 +1,5 @@
 # setup
-install-dev: _npm_strict
+install-dev:
 	npm install
 
 # tests
