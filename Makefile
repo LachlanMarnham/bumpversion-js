@@ -1,5 +1,5 @@
 # setup
-install-dev:
+install-dev: _npm_strict
 	npm install
 
 # tests
@@ -10,5 +10,5 @@ test-ci:
 	npm run test-ci
 
 # style
-prettier: _npm_strict
+prettier:
 	npm run prettier

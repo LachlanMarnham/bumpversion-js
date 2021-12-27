@@ -13,9 +13,13 @@
     "url": "https://github.com/LachlanMarnham/bumpversion-js/issues"
   },
   "homepage": "https://github.com/LachlanMarnham/bumpversion-js#readme",
+  "engines": {
+    "npm": ">=8.1.2",
+    "node": ">=16.13.1"
+  },
   "scripts": {
     "prettier": "prettier \"{src,test}/**/*.js\" --write",
-    "prettier-check": "prettier \"src/**/*.js\" --check",
+    "prettier-check": "prettier \"{src,test}/**/*.js\" --check",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js -c tests/jest.config.js",
     "test-ci": "node --experimental-vm-modules node_modules/jest/bin/jest.js -c tests/jest.config.js --ci --updateSnapshot"
   },
