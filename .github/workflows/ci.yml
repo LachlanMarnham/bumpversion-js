@@ -1,16 +1,29 @@
 name: Test
 on: [push]
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v2
-      - name: Set up Node 16.13.1
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16.13.1'
-      - name: Install dependencies
-        run: make install-dev
-      - name: Run tests
-        run: make test-ci
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Check out repository code
+              uses: actions/checkout@v2
+            - name: Set up Node 16.13.1
+              uses: actions/setup-node@v2
+              with:
+                  node-version: '16.13.1'
+            - name: Install dependencies
+              run: make install-dev
+            - name: Run tests
+              run: make test-ci
+    style:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Check out repository code
+              uses: actions/checkout@v2
+            - name: Set up Node 16.13.1
+              uses: actions/setup-node@v2
+              with:
+                  node-version: '16.13.1'
+            - name: Install dependencies
+              run: make install-dev
+            - name: Run style checks
+              run: make check-style-ci
