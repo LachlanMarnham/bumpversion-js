@@ -18,6 +18,7 @@
         "node": ">=16.13.1"
     },
     "scripts": {
+        "eslint": "eslint \"{src,tests}/**/*.js\" --quiet",
         "prettier": "prettier \"{src,tests}/**/*.js\" --write",
         "prettier-check": "prettier \"{src,tests}/**/*.js\" --check",
         "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js -c tests/jest.config.js",

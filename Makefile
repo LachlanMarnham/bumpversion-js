@@ -12,3 +12,11 @@ test-ci:
 # style
 prettier:
 	npm run prettier
+
+eslint:
+	npm run eslint
+
+check-style:
+	npm run eslint && npm run prettier-check
+
+check-style-ci: check-style
