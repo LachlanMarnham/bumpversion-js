@@ -1,6 +1,35 @@
 import { ValueError } from './errors.js';
 
-// TODO clear up error message
+class NumericFunction {
+    FIRST_NUMERIC = /([^\d]*)(\d+)(.*)/;
+
+    constructor(firstValue = null) {
+        if (firstValue !== null) {
+            let result = firstValue.match(this.FIRST_NUMERIC);
+            if (result === null) {
+                throw new ValueError(`The given first value ${firstValue} does not contain any digit`);
+            }
+        } else {
+            firstValue = 0;
+        }
+
+        this.firstValue = firstValue.toString();
+        this.optionalValue = this.firstValue;
+    }
+
+    bump(value) {
+        let result = value.match(this.FIRST_NUMERIC);
+        let partPrefix = result[1];
+        let partNumeric = result[2];
+        let partSuffix = result[3];
+        let bumpedNumeric = parseInt(partNumeric) + 1;
+
+        return [partPrefix, bumpedNumeric, partSuffix].join('');
+    }
+}
+
+
+// TODO clear up error messages
 class ValuesFunction {
     #values;
     constructor(values, optionalValue = null, firstValue = null) {
@@ -39,4 +68,4 @@ class ValuesFunction {
     }
 }
 
-export { ValuesFunction };
+export { NumericFunction, ValuesFunction };
