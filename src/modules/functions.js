@@ -28,7 +28,6 @@ class NumericFunction {
     }
 }
 
-
 // TODO clear up error messages
 class ValuesFunction {
     #values;
