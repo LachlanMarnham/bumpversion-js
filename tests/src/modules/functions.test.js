@@ -1,4 +1,4 @@
-import { ValuesFunction } from '../../../src/modules/functions.js';
+import { NumericFunction, ValuesFunction } from '../../../src/modules/functions.js';
 import { ValueError } from '../../../src/modules/errors.js';
 
 describe('ValuesFunction', () => {
@@ -64,3 +64,22 @@ describe('ValuesFunction', () => {
         });
     });
 });
+
+
+describe('NumericFunction', () => {
+    describe('constructor', () => {
+        // if firstValue not provided, this.firstValue = this.optionalValue = '0';
+        test.todo('default firstValue');
+        
+        // if first value is eg 'rc-129-asdfasdf3', firstValue = optionalValue = 'rc-129-asdfasdf3';
+        test.todo('non-default firstValue');
+
+        // if first value doesn't contain a number, throws ValueError
+        test.todo('raises if firstValue contains no digit');
+    })
+
+    describe('bump', () => {
+        // rc-1-adsf --> rc-2-adsf; parametrize
+        test.todo('bumps to next value successfully');
+    })
+})
