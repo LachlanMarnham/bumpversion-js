@@ -1,10 +1,9 @@
 import { NumericFunction, ValuesFunction } from './functions.js';
 
 class PartConfiguration {
-    functionCls;
 
-    constructor(...args) {
-        this.function = new this.functionCls(...args);
+    constructor(functionCls, ...args) {
+        this.function = new functionCls(...args)
     }
 
     get firstValue() {
@@ -21,12 +20,17 @@ class PartConfiguration {
 }
 
 class ConfiguredVersionPartConfiguration extends PartConfiguration {
-    functionCls = ValuesFunction;
+    constructor(values, optionalValue = null, firstValue = null) {
+        super(ValuesFunction, values, optionalValue, firstValue)
+    }
 }
 
 class NumericVersionPartConfiguration extends PartConfiguration {
-    functionCls = NumericFunction;
+    constructor(firstValue = null) {
+        super(NumericFunction, firstValue)
+    }
 }
+
 
 class VersionPart {
     // TODO: requires NumericVersionPartConfiguration and ConfiguredVersionPartConfiguration
