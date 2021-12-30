@@ -1,3 +1,13 @@
-class ValueError extends Error {}
+class BumpVersionError extends Error {
+    // A custom base class for all project-specific errors
+}
 
-export { ValueError };
+class IncompleteVersionRepresentationError extends BumpVersionError {}
+
+class InvalidVersionPartError extends BumpVersionError {}
+
+class MissingValueForSerializationError extends BumpVersionError {}
+
+class ValueError extends BumpVersionError {}
+
+export { IncompleteVersionRepresentationError, InvalidVersionPartError, MissingValueForSerializationError, ValueError };
