@@ -2,11 +2,12 @@ import { keyValueString } from '../../../src/modules/utils.js';
 
 describe('keyValueString', () => {
     test.each([
-        { input: {}, output: '' },
-        { input: { a: 1 }, output: 'a=1' },
-        { input: { a: 1, b: 2 }, output: 'a=1, b=2' },
-        { input: { a: 1, b: 2, c: 3 }, output: 'a=1, b=2, c=3' },
-    ])('correctly constructs $output from $input', ({ input, output }) => {
-        expect(keyValueString(input)).toBe(output);
+        { input: {}, expectedResult: '' },
+        { input: { a: 1 }, expectedResult: 'a=1' },
+        { input: { b: 2, a: 1 }, expectedResult: 'a=1, b=2' },
+        { input: { c: 3, b: 2, a: 1 }, expectedResult: 'a=1, b=2, c=3' },
+    ])('correctly constructs $expectedResult from $input', ({ input, expectedResult }) => {
+        const output = keyValueString(input);
+        expect(output).toBe(expectedResult);
     });
 });
