@@ -1,3 +1,25 @@
+import { NumericFunction } from './functions.js';
+
+class PartConfiguration {
+    functionCls;
+
+    constructor(...args) {
+        this.function = new this.functionCls(...args);
+    }
+
+    get firstValue() {
+        return this.function.firstValue.toString();
+    }
+
+    get optionalValue() {
+        return this.function.optionalValue.toString();
+    }
+
+    bump(value = null) {
+        return this.function.bump(value);
+    }
+}
+
 class ConfiguredVersionPartConfiguration {
     // TODO requires PartConfiguration
 }
