@@ -1,4 +1,4 @@
-import { NumericFunction } from './functions.js';
+import { NumericFunction, ValuesFunction } from './functions.js';
 
 class PartConfiguration {
     functionCls;
@@ -20,12 +20,12 @@ class PartConfiguration {
     }
 }
 
-class ConfiguredVersionPartConfiguration {
-    // TODO requires PartConfiguration
+class ConfiguredVersionPartConfiguration extends PartConfiguration {
+    functionCls = ValuesFunction;
 }
 
-class NumericVersionPartConfiguration {
-    // TODO requires PartConfiguration
+class NumericVersionPartConfiguration extends PartConfiguration {
+    functionCls = NumericFunction;
 }
 
 class VersionPart {
