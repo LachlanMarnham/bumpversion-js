@@ -62,25 +62,48 @@ describe('ValuesFunction', () => {
             const valuesFunction = new ValuesFunction([1, 2, 3], 1, 2);
             expect(valuesFunction.bump(1)).toBe(2);
         });
+
+        test('bumps to next non-consecutive value successfully', () => {
+            const valuesFunction = new ValuesFunction([0, 5, 10]);
+            expect(valuesFunction.bump(0)).toBe(5);
+        });
     });
 });
 
 describe('NumericFunction', () => {
     describe('constructor', () => {
-        // if firstValue not provided, this.firstValue = this.optionalValue = '0';
-        test.todo('default firstValue');
+        test('default firstValue', () => {
+            const numericFunction = new NumericFunction();
+            expect(numericFunction.firstValue).toBe('0');
+            expect(numericFunction.optionalValue).toBe('0');
+        });
 
-        // if first value is eg 'rc-129-asdfasdf3', firstValue = optionalValue = 'rc-129-asdfasdf3';
-        test.todo('non-default firstValue');
+        test('non-default firstValue', () => {
+            const numericFunction = new NumericFunction('rc-1-adsf');
+            expect(numericFunction.firstValue).toBe('rc-1-adsf');
+            expect(numericFunction.optionalValue).toBe('rc-1-adsf');
+        });
 
         // if first value doesn't contain a number, throws ValueError
-        test.todo('raises if firstValue contains no digit');
+        test('raises if firstValue contains no digit', () => {
+            expect(() => {
+                new NumericFunction('abc');
+            }).toThrowError(ValueError);
+        });
     });
 
     describe('bump', () => {
-        test('bumps to next value successfully', () => {
+        test.each([
+            { preBump: 'rc-1-adsf', postBump: 'rc-2-adsf' },
+            { preBump: 'rc-1', postBump: 'rc-2' },
+            { preBump: 'rc1adsf', postBump: 'rc2adsf' },
+            { preBump: 'rc1', postBump: 'rc2' },
+            { preBump: 'r3', postBump: 'r4' },
+            { preBump: 'r3-001', postBump: 'r4-001' },
+            { preBump: '0', postBump: '1' },
+        ])('bumps $preBump to $postBump successfully', ({ preBump, postBump }) => {
             const numericFunction = new NumericFunction('rc-1-adsf');
-            expect(numericFunction.bump('rc-1-adsf')).toBe('rc-2-adsf');
+            expect(numericFunction.bump(preBump)).toBe(postBump);
         });
     });
 });
