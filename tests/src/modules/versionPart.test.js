@@ -1,5 +1,10 @@
-import { Version, PartConfiguration } from '../../../src/modules/versionPart';
-// import { NumericFunction, ValuesFunction } from '../../../src/modules/functions.js';
+import {
+    Version,
+    PartConfiguration,
+    ConfiguredVersionPartConfiguration,
+    NumericVersionPartConfiguration,
+} from '../../../src/modules/versionPart';
+import { NumericFunction, ValuesFunction } from '../../../src/modules/functions.js';
 import { jest } from '@jest/globals';
 
 const mockBump = jest.fn();
@@ -74,6 +79,20 @@ describe('PartConfiguration', () => {
             expect(mockBump).toHaveBeenCalledTimes(1);
             expect(bumpedVal).toBe('bumpedVal');
         });
+    });
+});
+
+describe('ConfiguredVersionPartConfiguration', () => {
+    test('is assigned ValuesFunction', () => {
+        const config = new ConfiguredVersionPartConfiguration([1, 2, 3]);
+        expect(config.function).toBeInstanceOf(ValuesFunction);
+    });
+});
+
+describe('NumericVersionPartConfiguration', () => {
+    test('is assigned NumericFunction', () => {
+        const config = new NumericVersionPartConfiguration();
+        expect(config.function).toBeInstanceOf(NumericFunction);
     });
 });
 
