@@ -1,5 +1,5 @@
 import { Version, PartConfiguration } from '../../../src/modules/versionPart';
-import { NumericFunction, ValuesFunction } from '../../../src/modules/functions.js';
+// import { NumericFunction, ValuesFunction } from '../../../src/modules/functions.js';
 import { jest } from '@jest/globals';
 
 const mockBump = jest.fn();

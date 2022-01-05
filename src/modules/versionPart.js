@@ -51,4 +51,12 @@ class VersionConfig {
     // TODO: requires Version, VersionPart, labels_for_format
 }
 
-export { Version, labelsForFormat, VersionConfig, PartConfiguration };
+export {
+    Version,
+    labelsForFormat,
+    VersionConfig,
+    PartConfiguration,
+    ConfiguredVersionPartConfiguration,
+    NumericVersionPartConfiguration,
+    VersionPart,
+};
