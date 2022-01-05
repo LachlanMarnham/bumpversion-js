@@ -28,7 +28,7 @@ beforeEach(() => {
 describe('PartConfiguration', () => {
     describe('constructor', () => {
         test('correctly sets function', () => {
-            const config = new PartConfiguration(mockFunctionCls, 'param1', 'param2');
+            new PartConfiguration(mockFunctionCls, 'param1', 'param2');
             expect(mockFunctionCls).toHaveBeenCalledWith('param1', 'param2');
             expect(mockFunctionCls).toHaveBeenCalledTimes(1);
         });
