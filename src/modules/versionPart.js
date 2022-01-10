@@ -45,7 +45,19 @@ class Version {
     }
 }
 
-function labelsForFormat() {}
+function* labelsForFormat(serializeFormat) {
+    // Extracts field names from a format string. Fields are defined like ${fieldName}.
+    // Examples:
+    //      '${major}' -> ['major']
+    //      '${major}.${minor}.${patch}-${label}' -> ['major', 'minor', 'patch', 'label']
+    // Note: the serializeFormat is reminiscent of template literals, but it is a normal
+    //       string (i.e. 'this' and not `this`).
+    const fieldNamePattern = /\$\{([a-zA-Z]+)\}/g;
+    let matches = serializeFormat.matchAll(fieldNamePattern);
+    for (let match of matches) {
+        yield match[1];
+    }
+}
 
 class VersionConfig {
     // TODO: requires Version, VersionPart, labels_for_format
