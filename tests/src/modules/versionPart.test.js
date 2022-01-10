@@ -3,6 +3,7 @@ import {
     PartConfiguration,
     ConfiguredVersionPartConfiguration,
     NumericVersionPartConfiguration,
+    labelsForFormat,
 } from '../../../src/modules/versionPart';
 import { NumericFunction, ValuesFunction } from '../../../src/modules/functions.js';
 import { jest } from '@jest/globals';
@@ -102,5 +103,23 @@ describe('Version', () => {
             const version = new Version({ a: 1 });
             expect(version.original).toBe(null);
         });
+    });
+});
+
+describe('labelsForFormat', () => {
+    test('extracts labels', () => {
+        const version = new Version({ a: 1 });
+        expect(version.original).toBe(null);
+    });
+
+    test.each([
+        { serializeFormat: '${major}', expectedResult: ['major'] },
+        { serializeFormat: '${major}.${minor}', expectedResult: ['major', 'minor'] },
+        { serializeFormat: '${major}.${minor}.${patch}', expectedResult: ['major', 'minor', 'patch'] },
+        { serializeFormat: '${major}.${minor}.${patch}-rc{rc}', expectedResult: ['major', 'minor', 'patch', 'rc'] },
+        { serializeFormat: '${major}.${minor}.${patch}-{label}', expectedResult: ['major', 'minor', 'patch', 'label'] },
+    ])('extracts labels $expectedResult from $serializeFormat', ({ serializeFormat, expectedResult }) => {
+        const output = labelsForFormat(serializeFormat);
+        expect(output).toStrictEqual(expectedResult);
     });
 });
