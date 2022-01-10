@@ -7,6 +7,7 @@ import {
     VersionPart,
 } from '../../../src/modules/versionPart';
 import { NumericFunction, ValuesFunction } from '../../../src/modules/functions.js';
+import { TypeError } from '../../../src/modules/errors.js';
 import { jest } from '@jest/globals';
 
 const mockBump = jest.fn();
@@ -104,15 +105,23 @@ describe('VersionPart', () => {
             { value1: '1', value2: '1', expectedResult: true },
             { value1: '1', value2: '2', expectedResult: false },
             { value1: '0', value2: '0', expectedResult: true },
-        ])(
-            'VersionPart($value1).isEqual(VersionPart($value2))',
-            ({ value1, value2, expectedResult }) => {
-                const versionPart1 = new VersionPart(value1);
-                const versionPart2 = new VersionPart(value2);
-                expect(versionPart1.isEqual(versionPart2)).toBe(expectedResult);
-                expect(versionPart2.isEqual(versionPart1)).toBe(expectedResult);
-            },
-        );
+        ])('VersionPart($value1).isEqual(VersionPart($value2))', ({ value1, value2, expectedResult }) => {
+            const versionPart1 = new VersionPart(value1);
+            const versionPart2 = new VersionPart(value2);
+            expect(versionPart1.isEqual(versionPart2)).toBe(expectedResult);
+            expect(versionPart2.isEqual(versionPart1)).toBe(expectedResult);
+        });
+
+        test.each([
+            { operand: 1, operandType: 'Number' },
+            { operand: '1', operandType: 'String' },
+            { operand: [1], operandType: 'Array' },
+        ])('isEqual wont compute comparison between VersionPart instance and $operandType', (operand) => {
+            expect(() => {
+                const versionPart = new VersionPart('1');
+                versionPart.isEqual(operand);
+            }).toThrowError(TypeError);
+        });
     });
 });
 
