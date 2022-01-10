@@ -10,4 +10,12 @@ class MissingValueForSerializationError extends BumpVersionError {}
 
 class ValueError extends BumpVersionError {}
 
-export { IncompleteVersionRepresentationError, InvalidVersionPartError, MissingValueForSerializationError, ValueError };
+class TypeError extends BumpVersionError {}
+
+export {
+    IncompleteVersionRepresentationError,
+    InvalidVersionPartError,
+    MissingValueForSerializationError,
+    ValueError,
+    TypeError,
+};
