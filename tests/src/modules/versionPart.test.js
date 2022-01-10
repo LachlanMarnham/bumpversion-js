@@ -112,9 +112,9 @@ describe('VersionPart', () => {
                 config: new ConfiguredVersionPartConfiguration([1, 2, 3]),
                 configType: ConfiguredVersionPartConfiguration,
             },
-        ])('non-default config $configType', ({ config, configType }) => {
+        ])('non-default config $configType', ({ config }) => {
             const versionPart = new VersionPart('1', config);
-            expect(versionPart.config).toBeInstanceOf(configType);
+            expect(versionPart.config).toBe(config);
         });
     });
 
