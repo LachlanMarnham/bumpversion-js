@@ -107,19 +107,19 @@ describe('Version', () => {
 });
 
 describe('labelsForFormat', () => {
-    test('extracts labels', () => {
-        const version = new Version({ a: 1 });
-        expect(version.original).toBe(null);
-    });
-
     test.each([
         { serializeFormat: '${major}', expectedResult: ['major'] },
         { serializeFormat: '${major}.${minor}', expectedResult: ['major', 'minor'] },
         { serializeFormat: '${major}.${minor}.${patch}', expectedResult: ['major', 'minor', 'patch'] },
-        { serializeFormat: '${major}.${minor}.${patch}-rc{rc}', expectedResult: ['major', 'minor', 'patch', 'rc'] },
-        { serializeFormat: '${major}.${minor}.${patch}-{label}', expectedResult: ['major', 'minor', 'patch', 'label'] },
+        { serializeFormat: '${major}.${minor}.${patch}-rc${rc}', expectedResult: ['major', 'minor', 'patch', 'rc'] },
+        { serializeFormat: '${major}.${minor}.${patch}-${label}', expectedResult: ['major', 'minor', 'patch', 'label'] },
     ])('extracts labels $expectedResult from $serializeFormat', ({ serializeFormat, expectedResult }) => {
-        const output = labelsForFormat(serializeFormat);
-        expect(output).toStrictEqual(expectedResult);
+        const outputGenerator = labelsForFormat(serializeFormat);
+        const outputValues = [...outputGenerator];
+        expect(outputValues).toStrictEqual(expectedResult);
     });
+
+    test('is a generator', () => {
+        expect(labelsForFormat.constructor.name).toBe('GeneratorFunction');
+    })
 });
