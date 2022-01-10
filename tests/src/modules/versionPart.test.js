@@ -100,6 +100,24 @@ describe('NumericVersionPartConfiguration', () => {
 });
 
 describe('VersionPart', () => {
+    describe('constructor', () => {
+        test('default config', () => {
+            const versionPart = new VersionPart('1');
+            expect(versionPart.config).toBeInstanceOf(NumericVersionPartConfiguration);
+        });
+
+        test.each([
+            { config: new NumericVersionPartConfiguration('1'), configType: NumericVersionPartConfiguration },
+            {
+                config: new ConfiguredVersionPartConfiguration([1, 2, 3]),
+                configType: ConfiguredVersionPartConfiguration,
+            },
+        ])('non-default config $configType', ({ config, configType }) => {
+            const versionPart = new VersionPart('1', config);
+            expect(versionPart.config).toBeInstanceOf(configType);
+        });
+    });
+
     describe('isEqual', () => {
         test.each([
             { value1: '1', value2: '1', expectedResult: true },
