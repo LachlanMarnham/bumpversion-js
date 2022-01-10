@@ -4,6 +4,7 @@ import {
     ConfiguredVersionPartConfiguration,
     NumericVersionPartConfiguration,
     labelsForFormat,
+    VersionPart,
 } from '../../../src/modules/versionPart';
 import { NumericFunction, ValuesFunction } from '../../../src/modules/functions.js';
 import { jest } from '@jest/globals';
@@ -97,6 +98,24 @@ describe('NumericVersionPartConfiguration', () => {
     });
 });
 
+describe('VersionPart', () => {
+    describe('isEqual', () => {
+        test.each([
+            { value1: '1', value2: '1', expectedResult: true },
+            { value1: '1', value2: '2', expectedResult: false },
+            { value1: '0', value2: '0', expectedResult: true },
+        ])(
+            'VersionPart($value1).isEqual(VersionPart($value2))',
+            ({ value1, value2, expectedResult }) => {
+                const versionPart1 = new VersionPart(value1);
+                const versionPart2 = new VersionPart(value2);
+                expect(versionPart1.isEqual(versionPart2)).toBe(expectedResult);
+                expect(versionPart2.isEqual(versionPart1)).toBe(expectedResult);
+            },
+        );
+    });
+});
+
 describe('Version', () => {
     describe('constructor', () => {
         test('with default original', () => {
@@ -121,5 +140,5 @@ describe('labelsForFormat', () => {
 
     test('is a generator', () => {
         expect(labelsForFormat.constructor.name).toBe('GeneratorFunction');
-    })
+    });
 });
