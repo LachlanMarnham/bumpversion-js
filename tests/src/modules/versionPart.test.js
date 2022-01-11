@@ -156,12 +156,27 @@ describe('VersionPart', () => {
             { versionPartValue: '1', configValue: 'dummy', spyCallCount: 0, expectedResult: '1', label: 'truthy' },
         ])('#value is $label', ({ versionPartValue, configValue, spyCallCount, expectedResult }) => {
             const mockConfig = new NumericVersionPartConfiguration();
-            const optionalValueSpy = jest.spyOn(mockConfig, 'optionalValue', 'get').mockReturnValue(configValue)
+            const optionalValueSpy = jest.spyOn(mockConfig, 'optionalValue', 'get').mockReturnValue(configValue);
             const versionPart = new VersionPart(versionPartValue, mockConfig);
 
             const result = versionPart.value;
             expect(result).toBe(expectedResult);
             expect(optionalValueSpy).toBeCalledTimes(spyCallCount);
+        });
+    });
+
+    describe('isOptional', () => {
+        test.each([
+            { versionPartValue: 'val1', configValue: 'val1', expectedResult: true, label: 'same as' },
+            { versionPartValue: 'val1', configValue: 'val2', expectedResult: false, label: 'different to' },
+        ])('value is $label optionalValue', ({ versionPartValue, configValue, expectedResult }) => {
+            const mockConfig = new NumericVersionPartConfiguration();
+            const optionalValueSpy = jest.spyOn(mockConfig, 'optionalValue', 'get').mockReturnValue(configValue);
+            const versionPart = new VersionPart(versionPartValue, mockConfig);
+
+            const result = versionPart.isOptional;
+            expect(result).toBe(expectedResult);
+            expect(optionalValueSpy).toBeCalledTimes(1);
         });
     });
 
