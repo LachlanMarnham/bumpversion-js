@@ -1,4 +1,5 @@
 import { NumericFunction, ValuesFunction } from './functions.js';
+import { TypeError } from './errors.js';
 
 class PartConfiguration {
     constructor(functionCls, ...args) {
@@ -31,7 +32,47 @@ class NumericVersionPartConfiguration extends PartConfiguration {
 }
 
 class VersionPart {
-    // TODO: requires NumericVersionPartConfiguration and ConfiguredVersionPartConfiguration
+    // Represent part of a version number
+    // Offer a this.config object that rules how the part behaves when increased
+    // or reset
+    #value;
+    constructor(value, config = null) {
+        this.#value = value;
+        if (config === null) {
+            config = new NumericVersionPartConfiguration();
+        }
+        this.config = config;
+    }
+
+    get value() {
+        return this.#value || this.config.optionalValue;
+    }
+
+    get isOptional() {
+        return this.value == this.config.optionalValue;
+    }
+
+    bump() {
+        const nextValue = this.config.bump(this.value);
+        return new VersionPart(nextValue, this.config);
+    }
+
+    isEqual(other) {
+        if (!(other instanceof VersionPart)) {
+            throw new TypeError(
+                `${this.constructor.name}.isEqual does not support comparison with ${other.constructor.name}`,
+            );
+        }
+        return this.value === other.value;
+    }
+
+    copy() {
+        return new VersionPart(this.#value, this.config); // TODO should be this.config.copy()?
+    }
+
+    null() {
+        return new VersionPart(this.config.firstValue, this.config);
+    }
 }
 
 class Version {
