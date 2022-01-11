@@ -13,6 +13,9 @@ import { jest } from '@jest/globals';
 const mockBump = jest.fn();
 const mockFirstValueToString = jest.fn();
 const mockOptionalValueToString = jest.fn();
+const mockFirstValue = jest.fn();
+const mockOptionalValue = jest.fn();
+
 const mockFunctionCls = jest.fn().mockImplementation(() => {
     return {
         bump: mockBump,
@@ -25,12 +28,23 @@ const mockFunctionCls = jest.fn().mockImplementation(() => {
     };
 });
 
+const mockPartConfiguration = jest.fn().mockImplementation(() => {
+    return {
+        firstValue: mockFirstValue,
+        optionalValue: mockOptionalValue,
+        bump: mockBump,
+    };
+});
+
 beforeEach(() => {
     // Clear all instances and calls to constructor and all methods:
     mockFunctionCls.mockClear();
     mockBump.mockClear();
     mockFirstValueToString.mockClear();
     mockOptionalValueToString.mockClear();
+    mockFirstValue.mockClear();
+    mockOptionalValue.mockClear();
+    mockPartConfiguration.mockClear();
 });
 
 describe('PartConfiguration', () => {
@@ -115,6 +129,21 @@ describe('VersionPart', () => {
         ])('non-default config $configType', ({ config }) => {
             const versionPart = new VersionPart('1', config);
             expect(versionPart.config).toBe(config);
+        });
+    });
+
+    describe('bump', () => {
+        test('defers to config instance', () => {
+            const mockConfig = new mockPartConfiguration();
+            const oldValue = 'old value';
+            const versionPart = new VersionPart(oldValue, mockConfig);
+            const bumpedValue = 'bumped value';
+            mockBump.mockReturnValueOnce(bumpedValue);
+
+            const newVersionPart = versionPart.bump();
+            expect(mockConfig.bump).toHaveBeenCalledWith(oldValue);
+            expect(newVersionPart.config).toBe(versionPart.config);
+            expect(newVersionPart.value).toBe(bumpedValue);
         });
     });
 
