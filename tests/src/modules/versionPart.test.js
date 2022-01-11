@@ -204,6 +204,19 @@ describe('VersionPart', () => {
         });
     });
 
+    describe('toString', () => {
+        test('produces expected value', () => {
+            const versionPart = new VersionPart('dummyValue');
+            const stringRepresentation = versionPart.toString();
+            expect(stringRepresentation).toBe('<bumpversion.VersionPart:NumericVersionPartConfiguration:dummyValue>');
+        });
+
+        test('deferred to by template string', () => {
+            const versionPart = new VersionPart('dummyValue');
+            expect(`${versionPart}`).toBe('<bumpversion.VersionPart:NumericVersionPartConfiguration:dummyValue>');
+        });
+    });
+
     describe('copy', () => {
         test('creates new instance', () => {
             const versionPart = new VersionPart('value');
