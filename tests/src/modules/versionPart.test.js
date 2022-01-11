@@ -213,6 +213,19 @@ describe('VersionPart', () => {
             expect(newVersionPart).not.toBe(versionPart);
         });
     });
+
+    describe('null', () => {
+        test('creates new instance', () => {
+            const mockFirstValue = 'mockFirstValue';
+            const mockConfig = new NumericVersionPartConfiguration();
+            const firstValueSpy = jest.spyOn(mockConfig, 'firstValue', 'get').mockReturnValue(mockFirstValue);
+            const versionPart = new VersionPart('value', mockConfig);
+            const newVersionPart = versionPart.null();
+            expect(newVersionPart.value).toBe(mockFirstValue);
+            expect(newVersionPart.config).toBe(mockConfig);
+            expect(firstValueSpy).toBeCalledTimes(1);
+        });
+    });
 });
 
 describe('Version', () => {
