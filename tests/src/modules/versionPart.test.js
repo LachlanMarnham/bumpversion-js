@@ -37,7 +37,7 @@ const mockPartConfiguration = jest.fn().mockImplementation(() => {
 });
 
 beforeEach(() => {
-    // Clear all instances and calls to constructor and all methods:
+    // Manually restore stubs
     mockFunctionCls.mockClear();
     mockBump.mockClear();
     mockFirstValueToString.mockClear();
@@ -45,6 +45,9 @@ beforeEach(() => {
     mockFirstValue.mockClear();
     mockOptionalValue.mockClear();
     mockPartConfiguration.mockClear();
+
+    // Restore spies
+    jest.restoreAllMocks();
 });
 
 describe('PartConfiguration', () => {
@@ -144,6 +147,21 @@ describe('VersionPart', () => {
             expect(mockConfig.bump).toHaveBeenCalledWith(oldValue);
             expect(newVersionPart.config).toBe(versionPart.config);
             expect(newVersionPart.value).toBe(bumpedValue);
+        });
+    });
+
+    describe('value', () => {
+        test.each([
+            { versionPartValue: '', configValue: 'dummy', spyCallCount: 1, expectedResult: 'dummy', label: 'falsey' },
+            { versionPartValue: '1', configValue: 'dummy', spyCallCount: 0, expectedResult: '1', label: 'truthy' },
+        ])('#value is $label', ({ versionPartValue, configValue, spyCallCount, expectedResult }) => {
+            const mockConfig = new NumericVersionPartConfiguration();
+            const optionalValueSpy = jest.spyOn(mockConfig, 'optionalValue', 'get').mockReturnValue(configValue)
+            const versionPart = new VersionPart(versionPartValue, mockConfig);
+
+            const result = versionPart.value;
+            expect(result).toBe(expectedResult);
+            expect(optionalValueSpy).toBeCalledTimes(spyCallCount);
         });
     });
 
