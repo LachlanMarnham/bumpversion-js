@@ -135,21 +135,6 @@ describe('VersionPart', () => {
         });
     });
 
-    describe('bump', () => {
-        test('defers to config instance', () => {
-            const mockConfig = new mockPartConfiguration();
-            const oldValue = 'old value';
-            const versionPart = new VersionPart(oldValue, mockConfig);
-            const bumpedValue = 'bumped value';
-            mockBump.mockReturnValueOnce(bumpedValue);
-
-            const newVersionPart = versionPart.bump();
-            expect(mockConfig.bump).toHaveBeenCalledWith(oldValue);
-            expect(newVersionPart.config).toBe(versionPart.config);
-            expect(newVersionPart.value).toBe(bumpedValue);
-        });
-    });
-
     describe('value', () => {
         test.each([
             { versionPartValue: '', configValue: 'dummy', spyCallCount: 1, expectedResult: 'dummy', label: 'falsey' },
@@ -180,6 +165,21 @@ describe('VersionPart', () => {
         });
     });
 
+    describe('bump', () => {
+        test('defers to config instance', () => {
+            const mockConfig = new mockPartConfiguration();
+            const oldValue = 'old value';
+            const versionPart = new VersionPart(oldValue, mockConfig);
+            const bumpedValue = 'bumped value';
+            mockBump.mockReturnValueOnce(bumpedValue);
+
+            const newVersionPart = versionPart.bump();
+            expect(mockConfig.bump).toHaveBeenCalledWith(oldValue);
+            expect(newVersionPart.config).toBe(versionPart.config);
+            expect(newVersionPart.value).toBe(bumpedValue);
+        });
+    });
+
     describe('isEqual', () => {
         test.each([
             { value1: '1', value2: '1', expectedResult: true },
@@ -201,6 +201,16 @@ describe('VersionPart', () => {
                 const versionPart = new VersionPart('1');
                 versionPart.isEqual(operand);
             }).toThrowError(TypeError);
+        });
+    });
+
+    describe('copy', () => {
+        test('creates new instance', () => {
+            const versionPart = new VersionPart('value');
+            const newVersionPart = versionPart.copy();
+            expect(newVersionPart.value).toBe(versionPart.value);
+            expect(newVersionPart.config).toBe(versionPart.config);
+            expect(newVersionPart).not.toBe(versionPart);
         });
     });
 });
