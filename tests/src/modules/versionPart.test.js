@@ -248,6 +248,14 @@ describe('Version', () => {
             expect(version.original).toBe(null);
         });
     });
+
+    describe('Symbol.iterator', () => {
+        test('returns correct values', () => {
+            const version =new Version({a: 1, b: 2});
+            const keys = [...version];
+            expect(keys).toEqual(["a", "b"]);
+        })
+    })
 });
 
 describe('labelsForFormat', () => {

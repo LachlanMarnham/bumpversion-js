@@ -1,5 +1,6 @@
 import { NumericFunction, ValuesFunction } from './functions.js';
-import { TypeError } from './errors.js';
+import { InvalidVersionPartError, TypeError } from './errors.js';
+import { keyValueString } from './utils.js';
 
 class PartConfiguration {
     constructor(functionCls, ...args) {
@@ -66,6 +67,10 @@ class VersionPart {
         return this.value === other.value;
     }
 
+    toString() {
+        return `<bumpversion.VersionPart:${this.config.constructor.name}:${this.value}>`;
+    }
+
     copy() {
         return new VersionPart(this.#value, this.config); // TODO should be this.config.copy()?
     }
@@ -83,6 +88,55 @@ class Version {
         // constructor
         this.#values = values;
         this.original = original;
+    }
+
+    getItem(key) {
+        return this.#values[key];
+    }
+
+    get length() {
+        return Object.keys(this.#values).length;
+    }
+
+    *[Symbol.iterator]() {
+        // Example:
+        //     const version = new Version({a: 1, b: 2});
+        //     for (let key of version) {
+        //         console.log(key);  // a, b
+        //     }
+        for (let key of Object.keys(this.#values)) {
+            yield key;
+        }
+    }
+
+    toString() {
+        const stringyValues = keyValueString(this.#values);
+        return `<bumpversion.Version:${stringyValues}>`;
+    }
+
+    bump(partName, order) {
+        let bumped = false;
+        let newValues = {};
+
+        for (let label of order) {
+            if (!Object.prototype.hasOwnProperty.call(this.#values, label)) {
+                continue;
+            } else if (label === partName) {
+                newValues[label] = this.#values[label].bump();
+                bumped = true;
+            } else if (bumped) {
+                newValues[label] = this.#values[label].null();
+            } else {
+                newValues[label] = this.#values[label].copy();
+            }
+        }
+
+        if (!bumped) {
+            throw new InvalidVersionPartError(`No part named ${partName}`);
+        }
+
+        const newVersion = new Version(newValues);
+        return newVersion;
     }
 }
 
