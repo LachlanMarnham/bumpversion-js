@@ -1,0 +1,34 @@
+{
+  "name": "@lachlan.marnham/bumpversion",
+  "version": "0.0.0",
+  "description": "Increases project versions and updates them in your source code",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LachlanMarnham/bumpversion-js.git"
+  },
+  "author": "Lachlan Marnham",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/LachlanMarnham/bumpversion-js/issues"
+  },
+  "homepage": "https://github.com/LachlanMarnham/bumpversion-js#readme",
+  "engines": {
+    "npm": ">=8.1.2",
+    "node": ">=16.13.1"
+  },
+  "scripts": {
+    "eslint": "eslint \"{src,tests}/**/*.js\" --quiet",
+    "prettier": "prettier \"{src,tests}/**/*.js\" --write",
+    "prettier-check": "prettier \"{src,tests}/**/*.js\" --check",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js -c tests/jest.config.js",
+    "test-ci": "node --experimental-vm-modules node_modules/jest/bin/jest.js -c tests/jest.config.js --ci --updateSnapshot"
+  },
+  "devDependencies": {
+    "eslint": "^8.5.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.3",
+    "jest": "^27.4.5",
+    "prettier": "^2.5.1"
+  }
+}
